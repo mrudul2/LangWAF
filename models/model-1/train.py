@@ -56,7 +56,7 @@ results = {
     "f1_score": round(f1 * 100, 2),
     "classification_report": classification_report(y_test, y_pred, output_dict=True),
     "confusion_matrix": conf_matrix.tolist()
-}
+} 
 
 # Define results directory and file path
 results_dir = os.path.join(os.path.dirname(__file__), "../../results")

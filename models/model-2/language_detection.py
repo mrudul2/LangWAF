@@ -5,6 +5,7 @@ import urllib.parse
 import logging
 import os
 from datetime import datetime
+import pandas as pd
 
 # Set up logging configuration
 log_dir = "logs"
@@ -76,7 +77,7 @@ if __name__ == "__main__":
     
     # Process each record
     processed_count = 0
-    magika_instance = Magika()  # GOOD: Create once and reuse
+    magika_instance = Magika()  # Create once and reuse
     for item in data:
       if 'payload' not in item:
         logger.warning(f"'payload' field not found in item: {item}")
@@ -98,6 +99,13 @@ if __name__ == "__main__":
     with open(outputfile, 'w', encoding='utf-8') as outfile:
       json.dump(data, outfile, indent=4)
     logger.info("Processing complete! Results saved to" + outputfile)
+
+    # save results in csv format
+    output_csv_path = os.path.join(os.path.dirname(__file__), "../../data/model-2_data_with_languages.csv")
+    df = pd.DataFrame(data)
+    df.to_csv(output_csv_path, index=False)
+    logger.info(f"Predictions saved to {output_csv_path}!!!!!!!")
+
     
   except Exception as e:
     logger.error(f"An error occurred: {e}", exc_info=True)
