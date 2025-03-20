@@ -1,7 +1,3 @@
-# To run and save predictions in results/classified_requests.json, run the following command:
-# python models/model-1/run.py in the terminal
-
-
 import pandas as pd
 import joblib
 import json
@@ -12,17 +8,18 @@ import hashlib
 model_path = os.path.join(os.path.dirname(__file__), "../../models/model-1/waf_model.pkl")
 svm_model = joblib.load(model_path)
 
-
+# Load dataset
 dataset_path = os.path.join(os.path.dirname(__file__), "../../data/CSIC.csv")
 df = pd.read_csv(dataset_path)
 
 feature_columns = ['payload_len', 'alpha', 'non_alpha', 'attack_feature']
 X = df[feature_columns]
 
+# Ensure required columns exist
 if 'url' not in df.columns or 'payload' not in df.columns:
     raise ValueError("Dataset must contain 'url' and 'payload' columns.")
 
-
+# Make predictions
 predictions = svm_model.predict(X)
 
 # JSON output
