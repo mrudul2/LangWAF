@@ -13,8 +13,8 @@ df_model3.loc[:, "detected_language"] = df_model3["detected_language"].fillna("U
 df_model3.loc[:, "detected_language"] = label_enc.fit_transform(df_model3["detected_language"])
 
 # 1️⃣ Drop duplicate rows
-df_model3 = df_model3.drop_duplicates()
-print(f"✅ Removed duplicate rows. New shape: {df_model3.shape}")
+# df_model3 = df_model3.drop_duplicates()
+# print(f"✅ Removed duplicate rows. New shape: {df_model3.shape}")
 
 # 2️⃣ Handle missing values in 'payload'
 df_model3.loc[:, "payload"] = df_model3["payload"].fillna("UNKNOWN")  
@@ -25,6 +25,6 @@ df_model3 = df_model3.drop(columns=["request_id","url","payload"])
 
 
 # save the preprocessed data
-df_model3.to_csv(os.path.join(os.path.dirname(__file__), "../../data", "preprocessed_data.csv"), index=False)
+df_model3.to_csv(os.path.join(os.path.dirname(__file__), "../../data", "preprocessed_data-CISC_HTTPParams.csv"), index=False)
 
 print("✅ Data preprocessing complete!")

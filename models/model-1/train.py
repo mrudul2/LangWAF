@@ -1,3 +1,4 @@
+from math import log
 import pandas as pd
 import os
 import joblib
@@ -5,7 +6,9 @@ import json
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import train_test_split
-from sklearn.svm import SVC
+from sklearn.svm import LinearSVC
+import logging
+from datetime import datetime
 from sklearn.metrics import (
     accuracy_score,
     classification_report,
@@ -15,9 +18,22 @@ from sklearn.metrics import (
     f1_score
 )
 
+log_dir = "logs"
+os.makedirs(log_dir, exist_ok=True)
+log_file = os.path.join(log_dir, f"model-1_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
+
+logging.basicConfig(
+  level=logging.INFO,
+  format='%(asctime)s - %(levelname)s - %(message)s',
+  filename=log_file,
+)
+logger = logging.getLogger(__name__)
+
 # Load dataset
-dataset_path = os.path.join(os.path.dirname(__file__), "../../data/CSIC.csv")
+# dataset_path = os.path.join(os.path.dirname(__file__), "../../data/CSIC.csv")
+dataset_path = os.path.join(os.path.dirname(__file__), "../../data/CSIC_HTTPParams-model1.csv")
 df = pd.read_csv(dataset_path)
+logger.info(f"Dataset loaded from {dataset_path}")
 
 # Define features and target variable
 feature_columns = ['payload_len', 'alpha', 'non_alpha', 'attack_feature']
@@ -27,8 +43,9 @@ y = df['label']
 # Split dataset (80% train, 20% test)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
+logger.info("Dataset split into training and testing sets")
 # Train SVM model
-svm_model = SVC(kernel='linear', cache_size=7000)
+svm_model = LinearSVC(dual=False, max_iter=5000)
 svm_model.fit(X_train, y_train)
 
 # Save trained model
@@ -37,6 +54,7 @@ os.makedirs(model_dir, exist_ok=True)
 model_path = os.path.join(model_dir, "waf_model.pkl")
 joblib.dump(svm_model, model_path)
 print(f"Model saved to {model_path}")
+logger.info(f"Model saved to {model_path}")
 
 # Predictions
 y_pred = svm_model.predict(X_test)
@@ -57,6 +75,8 @@ results = {
     "classification_report": classification_report(y_test, y_pred, output_dict=True),
     "confusion_matrix": conf_matrix.tolist()
 } 
+
+logger.info(f"Results compute")
 
 # Define results directory and file path
 results_dir = os.path.join(os.path.dirname(__file__), "../../results")

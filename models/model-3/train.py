@@ -1,8 +1,10 @@
+
 import pandas as pd
 import os
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score
 
 def train_models(df):
     X = df.drop(columns=["label"])
@@ -18,6 +20,7 @@ def train_models(df):
     
     return decision_tree, svm_model, dt_accuracy, svm_accuracy
 
+
 def compute_weighted_score(is_unsafe, lang_match, precision_m1, recall_m1, fpr_m1, fnr_m1, confidence_m2):
     W1 = ((precision_m1 + recall_m1) / 2) * (1 - fpr_m1)
     W2 = (1 - fnr_m1) * confidence_m2
@@ -26,11 +29,11 @@ def compute_weighted_score(is_unsafe, lang_match, precision_m1, recall_m1, fpr_m
 
 def classify_request(final_score):
     if final_score > 0.8:
-        return "Bypassable ✅"
+        return "Bypassable"
     elif 0.5 <= final_score <= 0.8:
-        return "Further Inspection ⚠️"
+        return "Further Inspection "
     else:
-        return "Blocked ❌"
+        return "Blocked "
 
 if __name__ == "__main__":
     dataset_path = os.path.join(os.path.dirname(__file__), "../../data/preprocessed_data.csv")
@@ -41,7 +44,7 @@ if __name__ == "__main__":
     print(f"SVM Accuracy: {svm_accuracy:.2f}")
     
     # Example request classification
-    example_score = compute_weighted_score(is_unsafe=1, lang_match=0, precision_m1=0.85, recall_m1=0.90,
-                                           fpr_m1=0.10, fnr_m1=0.05, confidence_m2=0.95)
-    decision = classify_request(example_score)
-    print(f"Example Decision: {decision}")
+    # example_score = compute_weighted_score(is_unsafe=1, lang_match=0, precision_m1=0.85, recall_m1=0.90,
+    #                                        fpr_m1=0.10, fnr_m1=0.05, confidence_m2=0.95)
+    # decision = classify_request(example_score)
+    # print(f"Example Decision: {decision}")

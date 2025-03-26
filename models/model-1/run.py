@@ -32,7 +32,7 @@ for index, prediction in enumerate(predictions):
 
     output_data.append({
         "request_id": request_id,
-        "url": request_data["url"], # URL from dataset
+        "url": "" if pd.isnull(request_data["url"]) else request_data["url"], # URL from dataset
         "payload": "" if pd.isnull(request_data["payload"]) else request_data["payload"],  # Payload from dataset
         "classification": "unsafe" if prediction == 1 else "safe"
     })
@@ -40,10 +40,10 @@ for index, prediction in enumerate(predictions):
 # Save JSON
 results_dir = os.path.join(os.path.dirname(__file__), "../../results")
 os.makedirs(results_dir, exist_ok=True)
-json_path = os.path.join(results_dir, "classified_requests.json")
+json_path = os.path.join(results_dir, "classified_requests-CISC_HTTPParams.json")
 
 # save in csv format
-output_csv_path = os.path.join(data_dir, "model-1_results.csv")
+output_csv_path = os.path.join(data_dir, "model-1_results-CISC_HTTPParams.csv")
 df = pd.DataFrame(output_data)
 df.to_csv(output_csv_path, index=False)
 print(f"Predictions saved to {output_csv_path}!!!!!!!")

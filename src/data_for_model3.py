@@ -40,7 +40,7 @@ df_model1 = pd.DataFrame(model1_results)
 # df_model2 = pd.DataFrame(model2_results)
 
 # load model-2 data
-df_model2 = pd.read_csv(os.path.join(data_dir, "model-2_data_with_languages.csv"))
+df_model2 = pd.read_csv(os.path.join(data_dir, "model-2_data_with_languages-CISC_HTTPParams.csv"))
 df_labels = pd.read_csv(os.path.join(data_dir, "request_id_label.csv"))
 df_labels_grouped = df_labels.groupby("request_id").agg({"label": "max"}).reset_index() # Group by request_id and keep the max label
 

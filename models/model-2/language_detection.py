@@ -68,7 +68,7 @@ def preprocess(payload):
 
 if __name__ == "__main__":
   # Load the JSON file
-  input_file = os.path.join(os.path.dirname(__file__), "../../results/classified_requests.json")
+  input_file = os.path.join(os.path.dirname(__file__), "../../results/classified_requests-CISC_HTTPParams.json")
   try:
     logger.info("Starting language detection process")
     with open(input_file, 'r', encoding='utf-8') as file:
@@ -95,13 +95,13 @@ if __name__ == "__main__":
         logger.info(f"Processed {processed_count}/{len(data)} records")
     
     # Save the results to a new JSON file
-    outputfile = os.path.join(os.path.dirname(__file__), "../../results/data_with_languages.json")
+    outputfile = os.path.join(os.path.dirname(__file__), "../../results/data_with_languages-CISC_HTTPParams.json")
     with open(outputfile, 'w', encoding='utf-8') as outfile:
       json.dump(data, outfile, indent=4)
     logger.info("Processing complete! Results saved to" + outputfile)
 
     # save results in csv format
-    output_csv_path = os.path.join(os.path.dirname(__file__), "../../data/model-2_data_with_languages.csv")
+    output_csv_path = os.path.join(os.path.dirname(__file__), "../../data/model-2_data_with_languages-CISC_HTTPParams.csv")
     df = pd.DataFrame(data)
     df.to_csv(output_csv_path, index=False)
     logger.info(f"Predictions saved to {output_csv_path}!!!!!!!")
