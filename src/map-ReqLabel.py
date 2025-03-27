@@ -3,7 +3,7 @@ import os
 import hashlib
 
 
-dataset_path = os.path.join(os.path.dirname(__file__), "../data/CSIC.csv")
+dataset_path = os.path.join(os.path.dirname(__file__), "../data/CSIC_HTTPParams-model1.csv")
 data_dir = os.path.join(os.path.dirname(__file__), "../data")
 
 df = pd.read_csv(dataset_path)

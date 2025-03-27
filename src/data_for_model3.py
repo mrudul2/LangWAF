@@ -7,12 +7,12 @@ results_dir = os.path.join(os.path.dirname(__file__), "../results")
 data_dir = os.path.join(os.path.dirname(__file__), "../data")
 
 # Load Model-1 results (Safe/Unsafe classification)
-classified_requests_path = os.path.join(results_dir, "classified_requests.json")
+classified_requests_path = os.path.join(results_dir, "classified_requests-CISC_HTTPParams.json")
 with open(classified_requests_path, "r") as file:
     model1_results = json.load(file)
 
 # Load Model-2 results (Language Detection)
-data_with_lang_path = os.path.join(results_dir, "data_with_languages.json")
+data_with_lang_path = os.path.join(results_dir, "data_with_languages-CISC_HTTPParams.json")
 with open(data_with_lang_path, "r") as file:
     model2_results = json.load(file)
 

@@ -11,7 +11,7 @@ model_path = os.path.join(os.path.dirname(__file__), "../../models/model-1/waf_m
 svm_model = joblib.load(model_path)
 
 # Load dataset
-dataset_path = os.path.join(os.path.dirname(__file__), "../../data/CSIC.csv")
+dataset_path = os.path.join(os.path.dirname(__file__), "../../data/CSIC_HTTPParams-model1.csv")
 df = pd.read_csv(dataset_path)
 
 feature_columns = ['payload_len', 'alpha', 'non_alpha', 'attack_feature']
@@ -34,7 +34,10 @@ for index, prediction in enumerate(predictions):
         "request_id": request_id,
         "url": "" if pd.isnull(request_data["url"]) else request_data["url"], # URL from dataset
         "payload": "" if pd.isnull(request_data["payload"]) else request_data["payload"],  # Payload from dataset
-        "classification": "unsafe" if prediction == 1 else "safe"
+        "classification": "unsafe" if prediction == 1 else "safe",
+        "label": "" if "label" not in df.columns or pd.isnull(request_data["label"]) else int(request_data["label"]) if isinstance(request_data["label"], (int, float)) else str(request_data["label"])
+
+        
     })
 
 # Save JSON
