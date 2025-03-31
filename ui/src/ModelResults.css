@@ -1,0 +1,65 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #4B0082;
+    /* Dark Purple */
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.model-results-container {
+    width: 90%;
+    margin: 20px auto;
+}
+
+.model-results-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.model-card {
+    background: #6A0DAD;
+    /* Medium Purple */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    width: 45%;
+    text-align: center;
+}
+
+.confusion-matrix-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.confusion-matrix-table th,
+.confusion-matrix-table td {
+    border: 1px solid white;
+    padding: 10px;
+    text-align: center;
+}
+
+.matrix-cell {
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.2);
+    /* Light transparent effect */
+    transition: 0.3s;
+}
+
+.matrix-cell:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.error-message {
+    color: red;
+    text-align: center;
+    font-size: 18px;
+}
+
+.loading-message {
+    text-align: center;
+    font-size: 18px;
+    color: lightgray;
+}

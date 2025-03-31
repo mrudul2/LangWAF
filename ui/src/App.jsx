@@ -1,17 +1,17 @@
-import React from "react";
+import { useState } from "react";
+import ModelResults from "./ModelResults";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./Home";
-import WAFDashboard from "./WAFDashboard";
+import Navbar from "./Navbar";
 
 function App() {
+  const [count, setCount] = useState(0);
+
   return (
     <Router>
-      <div className="App">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/waf-dashboard" element={<WAFDashboard />} />
-        </Routes>
-      </div>
+      <Navbar />
+      <Routes>
+        <Route path="/model-results" element={<ModelResults />} />
+      </Routes>
     </Router>
   );
 }
