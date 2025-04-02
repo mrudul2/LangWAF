@@ -10,7 +10,7 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/model-results" element={<ModelResults />} />
+        <Route path="/final-model-results" element={<ModelResults />} />
       </Routes>
     </Router>
   );

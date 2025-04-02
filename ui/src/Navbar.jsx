@@ -1,7 +1,9 @@
 import { NavLink } from "react-router-dom";
 import "./navbar.css";
+import { useState } from "react";
 
 const Navbar = () => {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   return (
     <nav className="navbar">
       <div className="container">
@@ -14,17 +16,30 @@ const Navbar = () => {
             <li>
               <NavLink to="/">Home</NavLink>
             </li>
-            <li>
-              <NavLink to="/model-results">Model results</NavLink>
+            {/* Model Results with Dropdown */}
+            <li
+              className="dropdown"
+              onMouseEnter={() => setDropdownOpen(true)}
+              onMouseLeave={() => setDropdownOpen(false)}
+            >
+              <NavLink to="/model-results">Model Results</NavLink>
+              {dropdownOpen && (
+                <ul className="dropdown-menu">
+                  <li>
+                    <NavLink to="/model1-results">Safe/Unsafe</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/model2-results">Language</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/final-model-results">Final results</NavLink>
+                  </li>
+                </ul>
+              )}
             </li>
-            <li>
-              <NavLink to="/projects">Projects</NavLink>
-            </li>
+
             <li>
               <NavLink to="/about">About</NavLink>
-            </li>
-            <li>
-              <NavLink to="/contact">Contact</NavLink>
             </li>
           </ul>
         </div>
