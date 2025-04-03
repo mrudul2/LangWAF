@@ -30,7 +30,6 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Load dataset
-# dataset_path = os.path.join(os.path.dirname(__file__), "../../data/CSIC.csv")
 dataset_path = os.path.join(os.path.dirname(__file__), "../../data/CSIC_HTTPParams-model1.csv")
 df = pd.read_csv(dataset_path)
 logger.info(f"Dataset loaded from {dataset_path}")
@@ -42,8 +41,8 @@ y = df['label']
 
 # Split dataset (80% train, 20% test)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
 logger.info("Dataset split into training and testing sets")
+
 # Train SVM model
 svm_model = LinearSVC(dual=False, max_iter=5000)
 svm_model.fit(X_train, y_train)
@@ -66,28 +65,49 @@ recall = recall_score(y_test, y_pred)
 f1 = f1_score(y_test, y_pred)
 conf_matrix = confusion_matrix(y_test, y_pred)
 
-# Save results in JSON
-results = {
+# Extract classification report
+report = classification_report(y_test, y_pred, output_dict=True)
+
+# Prepare JSON results
+formatted_results = {
     "accuracy": round(accuracy * 100, 2),
     "precision": round(precision * 100, 2),
     "recall": round(recall * 100, 2),
     "f1_score": round(f1 * 100, 2),
-    "classification_report": classification_report(y_test, y_pred, output_dict=True),
+    "classification_report": {
+        label: {
+            "precision": report[label]["precision"],
+            "recall": report[label]["recall"],
+            "f1-score": report[label]["f1-score"],
+            "support": report[label]["support"]
+        } for label in report if label not in ["accuracy", "macro avg", "weighted avg"]
+    },
+    "macro avg": {
+        "precision": report["macro avg"]["precision"],
+        "recall": report["macro avg"]["recall"],
+        "f1-score": report["macro avg"]["f1-score"],
+        "support": report["macro avg"]["support"]
+    },
+    "weighted avg": {
+        "precision": report["weighted avg"]["precision"],
+        "recall": report["weighted avg"]["recall"],
+        "f1-score": report["weighted avg"]["f1-score"],
+        "support": report["weighted avg"]["support"]
+    },
     "confusion_matrix": conf_matrix.tolist()
-} 
-
-logger.info(f"Results compute")
+}
 
 # Define results directory and file path
 results_dir = os.path.join(os.path.dirname(__file__), "../../results")
 os.makedirs(results_dir, exist_ok=True)
-json_results_path = os.path.join(results_dir, "model1_results.json")
+json_results_path = os.path.join(results_dir, "model3_results.json")
 
 # Save JSON file
 with open(json_results_path, "w") as json_file:
-    json.dump(results, json_file, indent=4)
+    json.dump(formatted_results, json_file, indent=4)
 
 print(f"Results saved to {json_results_path}")
+logger.info(f"Results saved to {json_results_path}")
 
 # Plot and Save Confusion Matrix
 plt.figure(figsize=(6, 5))

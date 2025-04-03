@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #fcfcfc;
+}
+
+/* Navbar Styling */
+.navbar {
+    height: 60px;
+    background-color: #4B0082;
+    /* Dark Purple */
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+/* Container */
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Project Name */
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+}
+
+/* Navigation Elements */
+.nav-elements ul {
+    display: flex;
+    justify-content: flex-end;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-elements ul li {
+    position: relative;
+    margin-left: 30px;
+}
+
+.nav-elements ul a {
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+/* Active Link */
+.nav-elements ul a.active {
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+/* Hover Effect */
+.nav-elements ul a:hover {
+    color: #D8BFD8;
+    /* Light Purple */
+}
+
+/* Dropdown Menu */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: -20PX;
+    background-color: #c87aff;
+    /* Dark Purple */
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    display: none;
+    min-width: 180px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu li {
+    padding: 10px 20px;
+}
+
+.dropdown-menu li a {
+    color: rgb(0, 0, 0);
+    font-size: 14px;
+    text-decoration: none;
+    display: block;
+    transition: background 0.3s;
+}
+
