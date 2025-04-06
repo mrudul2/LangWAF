@@ -1,4 +1,0 @@
-2025-04-02 13:12:12,404 - INFO - Dataset loaded from C:\Users\Devayani\Desktop\WAF_NEW\LangWAF\models\model-1\../../data/CSIC_HTTPParams-model1.csv
-2025-04-02 13:12:12,421 - INFO - Dataset split into training and testing sets
-2025-04-02 13:12:12,598 - INFO - Model saved to C:\Users\Devayani\Desktop\WAF_NEW\LangWAF\models\model-1\../../models/model-1\waf_model.pkl
-2025-04-02 13:12:12,655 - INFO - Results saved to C:\Users\Devayani\Desktop\WAF_NEW\LangWAF\models\model-1\../../results\model3_results.json

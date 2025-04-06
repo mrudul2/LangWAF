@@ -1,4 +1,0 @@
-2025-03-24 22:36:03,837 - INFO - Dataset loaded from C:\FYP-LangWAF\LangWAF\models\model-1\../../data/CSIC_HTTPParams-model1.csv
-2025-03-24 22:36:03,866 - INFO - Dataset split into training and testing sets
-2025-03-24 22:36:04,085 - INFO - Model saved to C:\FYP-LangWAF\LangWAF\models\model-1\../../models/model-1\waf_model.pkl
-2025-03-24 22:36:04,121 - INFO - Results compute
