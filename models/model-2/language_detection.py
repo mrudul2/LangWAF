@@ -63,8 +63,7 @@ def preprocess(payload):
 
 
 if __name__ == "__main__":
-  # Load the JSON file
-  input_file = os.path.join(os.path.dirname(__file__), "../../results/classified_requests-CISC_HTTPParams.json")
+  input_file = os.path.join(os.path.dirname(__file__), "../../results/classified_requests-random_forest-CISC_HTTPParams.json")
   try:
     logger.info("Starting language detection process")
     with open(input_file, 'r', encoding='utf-8') as file:
@@ -85,7 +84,7 @@ if __name__ == "__main__":
       
       # Add the detected language to the item
       item['detected_language'] = result.output.label
-      item['detected_language_confidence'] = result.score
+      item['confidence'] = result.score
       
       processed_count += 1
       if processed_count % 100 == 0:
