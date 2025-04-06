@@ -158,6 +158,26 @@ for model_name, result in results.items():
     roc_info = f", ROC AUC: {result['roc_auc']}%" if result["roc_auc"] is not None else ""
     print(f"{model_name}: Accuracy: {result['accuracy']}%, Precision: {result['precision']}%, Recall: {result['recall']}%, F1: {result['f1_score']}%{roc_info}")
 
+# Save model comparison summary for UI
+comparison_summary = {
+    model_name: {
+        "accuracy": result["accuracy"],
+        "precision": result["precision"],
+        "recall": result["recall"],
+        "f1_score": result["f1_score"],
+        "roc_auc": result["roc_auc"]
+    }
+    for model_name, result in results.items()
+}
+
+comparison_json_path = os.path.join(results_dir, "model1_comparison_summary.json")
+with open(comparison_json_path, "w") as json_file:
+    json.dump(comparison_summary, json_file, indent=4)
+
+print(f"\nModel comparison summary saved to {comparison_json_path}")
+logger.info(f"Model comparison summary saved to {comparison_json_path}")
+
+
 # Create comparison bar chart
 plt.figure(figsize=(12, 6))
 model_names = list(results.keys())
