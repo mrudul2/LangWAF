@@ -30,14 +30,10 @@ def detect_language(snippet, magika_instance):
   str: The detected programming language or "Unknown" if not detected
   """
   try:
-    result = magika_instance.identify_bytes(snippet.encode('utf-8'))
-    return result.output.label
-    # m = Magika()
-    # result = m.identify_bytes(snippet.encode('utf-8'))
-    # return result.output.label
+    return magika_instance.identify_bytes(snippet.encode('utf-8'))
   except Exception as e:
     # logger.error(f"Error detecting language: {e}")
-    return "Unknown"
+    return {'output': {'label': 'Unknown'}, 'score': 0.0}
 
 def preprocess(payload):
   """
@@ -85,10 +81,11 @@ if __name__ == "__main__":
         
       payload = item['payload']
       processed_payload = preprocess(payload)
-      language = detect_language(processed_payload, magika_instance)
+      result = detect_language(processed_payload, magika_instance)
       
       # Add the detected language to the item
-      item['detected_language'] = language
+      item['detected_language'] = result.output.label
+      item['detected_language_confidence'] = result.score
       
       processed_count += 1
       if processed_count % 100 == 0:
@@ -98,7 +95,7 @@ if __name__ == "__main__":
     outputfile = os.path.join(os.path.dirname(__file__), "../../results/data_with_languages-CISC_HTTPParams.json")
     with open(outputfile, 'w', encoding='utf-8') as outfile:
       json.dump(data, outfile, indent=4)
-    logger.info("Processing complete! Results saved to" + outputfile)
+    logger.info("Processing complete! Results saved to "+ outputfile)
 
     # save results in csv format
     output_csv_path = os.path.join(os.path.dirname(__file__), "../../data/model-2_data_with_languages-CISC_HTTPParams.csv")
