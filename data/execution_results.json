@@ -1,0 +1,26 @@
+{
+  "model1": {
+    "status": "completed",
+    "execution_time": 35.31564974784851,
+    "completed_at": "2025-05-01 23:56:26",
+    "details": {}
+  },
+  "model2": {
+    "status": "completed",
+    "execution_time": 1.5895373821258545,
+    "completed_at": "2025-05-01 23:56:28",
+    "details": {}
+  },
+  "model3": {
+    "status": "idle",
+    "execution_time": 0,
+    "completed_at": "",
+    "details": {}
+  },
+  "pipeline": {
+    "status": "running",
+    "execution_time": 0,
+    "completed_at": "",
+    "details": {}
+  }
+}

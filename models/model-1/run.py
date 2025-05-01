@@ -4,16 +4,16 @@ import json
 import os
 import hashlib
 import numpy as np
-import time  # Import time module for performance measurement
+import time
 
-data_dir = os.path.join(os.path.dirname(__file__), "../../data")
-results_dir = os.path.join(os.path.dirname(__file__), "../../results")
+data_dir = os.path.join(os.path.dirname(__file__), r"..\..\data")
+results_dir = os.path.join(os.path.dirname(__file__), r"..\..\results")
 os.makedirs(results_dir, exist_ok=True)
 
 # Models to use
 models = {
     "svm": "svm_model.pkl",
-    "svm_prob": "svm_prob_model.pkl", 
+    # "svm_prob": "svm_prob_model.pkl", 
     "logistic_regression": "logistic_regression_model.pkl",
     "random_forest": "random_forest_model.pkl"
 }
