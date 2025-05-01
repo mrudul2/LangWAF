@@ -4,6 +4,7 @@ import json
 import os
 import hashlib
 import numpy as np
+import time  # Import time module for performance measurement
 
 data_dir = os.path.join(os.path.dirname(__file__), "../../data")
 results_dir = os.path.join(os.path.dirname(__file__), "../../results")
@@ -43,6 +44,9 @@ model_probabilities = {}
 
 # Make predictions with each model
 for model_name, model in loaded_models.items():
+    # Start timing
+    start_time = time.perf_counter()
+    
     if model_name == "svm":
         # Standard SVM only outputs class labels
         model_predictions[model_name] = model.predict(X)
@@ -54,6 +58,11 @@ for model_name, model in loaded_models.items():
         # Get probability for class 1 (unsafe)
         probs = model.predict_proba(X)[:, 1] 
         model_probabilities[model_name] = probs
+    
+    # End timing and calculate execution time
+    end_time = time.perf_counter()
+    execution_time = end_time - start_time
+    print(f"Model {model_name} execution time: {execution_time:.4f} seconds")
 
 # Prepare output data for each model
 for model_name in loaded_models.keys():

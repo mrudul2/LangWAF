@@ -6,6 +6,7 @@ import logging
 import os
 from datetime import datetime
 import pandas as pd
+import time  # Import time module for performance measurement
 
 # Set up logging configuration
 log_dir = "logs"
@@ -72,6 +73,10 @@ if __name__ == "__main__":
     
     # Process each record
     processed_count = 0
+    
+    # Start overall timing
+    start_total_time = time.perf_counter()
+    
     magika_instance = Magika()  # Create once and reuse
     for item in data:
       if 'payload' not in item:
@@ -89,6 +94,17 @@ if __name__ == "__main__":
       processed_count += 1
       if processed_count % 100 == 0:
         logger.info(f"Processed {processed_count}/{len(data)} records")
+    
+    # Calculate total detection time
+    end_total_time = time.perf_counter()
+    total_detection_time = end_total_time - start_total_time
+    avg_detection_time = total_detection_time / processed_count if processed_count > 0 else 0
+    
+    # Log performance metrics
+    logger.info(f"Total language detection time: {total_detection_time:.4f} seconds")
+    logger.info(f"Average detection time per item: {avg_detection_time:.6f} seconds")
+    print(f"Total language detection time: {total_detection_time:.4f} seconds")
+    print(f"Average detection time per item: {avg_detection_time:.6f} seconds")
     
     # Save the results to a new JSON file
     outputfile = os.path.join(os.path.dirname(__file__), "../../results/data_with_languages-CISC_HTTPParams.json")
