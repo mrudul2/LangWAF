@@ -8,6 +8,7 @@ df_model3 = pd.read_csv(dataset_path)
 # Encode 'detected_language'
 label_enc = LabelEncoder()
 df_model3["detected_language"] = df_model3["detected_language"].fillna("UNKNOWN")
+df_model3["detected_language_as_text"] = df_model3["detected_language"].copy()
 df_model3["detected_language"] = label_enc.fit_transform(df_model3["detected_language"])
 
 # 2️⃣ Handle missing values in 'payload'
